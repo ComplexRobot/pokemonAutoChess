@@ -75,7 +75,7 @@ export async function joinLobbyRoom(
 
           const reconnectToken: string = localStore.get(
             LocalStoreKeys.RECONNECTION_LOBBY
-          )
+          )?.reconnectionToken
           if (reconnectToken) {
             logger.log("attempting reconnect to token")
             try {
@@ -97,7 +97,7 @@ export async function joinLobbyRoom(
           // store reconnection token for 5 minutes ; server may kick the inactive users before that
           localStore.set(
             LocalStoreKeys.RECONNECTION_LOBBY,
-            room.reconnectionToken,
+            { reconnectionToken: room.reconnectionToken, roomId: room.roomId },
             60 * 5
           )
 
