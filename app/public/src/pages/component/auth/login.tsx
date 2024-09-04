@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks"
 import { joinLobbyRoom } from "../../../game/lobby-logic"
 import { logIn, logOut } from "../../../stores/NetworkStore"
 import { FIREBASE_CONFIG } from "../../utils/utils"
-//import AnonymousButton from "./anonymous-button"
+import AnonymousButton from "./anonymous-button"
 import { StyledFirebaseAuth } from "./styled-firebase-auth"
 import { throttle } from "../../../../../utils/function"
 
@@ -68,7 +68,7 @@ export default function Login() {
           uiConfig={uiConfig}
           firebaseAuth={firebase.auth()}
         />
-        {/* <AnonymousButton /> */}
+        <AnonymousButton />
       </div>
     )
   } else {
