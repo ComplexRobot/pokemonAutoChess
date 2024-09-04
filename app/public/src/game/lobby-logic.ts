@@ -55,8 +55,10 @@ export async function joinLobbyRoom(
     (resolve, reject) => {
       const client = store.getState().network.client
       const lobby = store.getState().network.lobby
+      logger.log("joinLobbyRoom")
       if (lobby?.connection.isOpen) {
         // already connected to a lobby room fully initialized
+        logger.log("already connected")
         return resolve(lobby)
       }
 
@@ -75,15 +77,18 @@ export async function joinLobbyRoom(
             LocalStoreKeys.RECONNECTION_LOBBY
           )
           if (reconnectToken) {
+            logger.log("attempting reconnect to token")
             try {
               // if a reconnect token is found, try to reconnect to the lobby room
               room = await client.reconnect(reconnectToken)
             } catch (error) {
+              logger.log("reconnect failed: " + error)
               localStore.delete(LocalStoreKeys.RECONNECTION_LOBBY)
             }
           }
 
           if (!room) {
+            logger.log("joining lobby")
             // otherwise, connect to the lobby room
             const idToken = await user.getIdToken()
             room = await client.join("lobby", { idToken })
