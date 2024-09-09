@@ -68,13 +68,14 @@ export function enableAutoReconnect<T = any>(client: Client, room: Room<T>, reco
   }
 
   // update to new reconnection token after reconnecting
-  // (room as any).onJoin(() => {
-  //   localStore.set(
-  //     reconnectStoreKey,
-  //     { reconnectionToken: room.reconnectionToken, roomId: room.roomId },
-  //     tokenExpirationTime
-  //   )
-  // })
+  (room as any).onJoin(() => {
+    logger.log("onJoin event")
+    localStore.set(
+      reconnectStoreKey,
+      { reconnectionToken: room.reconnectionToken, roomId: room.roomId },
+      tokenExpirationTime
+    )
+  })
 
   // wrap send method with a connection check
   const originalSend = room.send
