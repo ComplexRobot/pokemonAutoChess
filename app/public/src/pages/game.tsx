@@ -274,6 +274,11 @@ export default function Game() {
 
       gameContainer = new GameContainer(container.current, uid, room)
 
+      // test code
+      setInterval(() => {
+        store.getState().network.game?.connection.close(3008)
+      }, 3000)
+
       const gameElm = document.getElementById("game")
       gameElm?.addEventListener(Transfer.DRAG_DROP, ((
         event: CustomEvent<IDragDropMessage>
